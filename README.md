@@ -1,3 +1,7 @@
+MISSING FILES DUE TO MAX UPLOAD SIZE IS 25MB AND OURS IS 111MB
+
+
+
 A platform for professors and students for report management built with laravel , sql , websockets , etc ...
 ![image](https://github.com/user-attachments/assets/7ae88a17-f041-4bae-a083-2b5660cf2292)
 
