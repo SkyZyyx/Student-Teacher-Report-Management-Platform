@@ -1,0 +1,349 @@
+/*--------------------
+Mixins
+--------------------*/
+@mixin center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin ball {
+    @include center;
+    content: '';
+    display: block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .5);
+    z-index: 2;
+    margin-top: 4px;
+    animation: ball .45s cubic-bezier(0, 0, 0.15, 1) alternate infinite;
+  }
+  
+  /*--------------------
+  Body
+  --------------------*/
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    line-height: 1.3;
+    overflow: hidden;
+    background-repeat: no-repeat;
+  }
+  
+  /*--------------------
+  Chat
+  --------------------*/
+  .chat {
+    @include center;
+    width: 750px;
+    height: 90vh;
+    max-height: 1000px;
+    z-index: 2;
+    overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, .5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  
+  /*--------------------
+  Chat Title
+  --------------------*/
+  .chat-title {
+    flex: 0 1 45px;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 10px 10px 50px;
+  
+    h1, h2 {
+      font-weight: normal;
+      font-size: 10px;
+      margin: 0;
+      padding: 0;
+    }
+  
+    h2 {
+      color: rgba(255, 255, 255, .5);
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
+  
+    .avatar {
+      position: absolute;
+      z-index: 1;
+      top: 8px;
+      left: 9px;
+      border-radius: 30px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border: 2px solid rgba(255, 255, 255, 0.24);
+      background-size: cover;
+  
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  
+  /*--------------------
+  Messages
+  --------------------*/
+  .messages {
+    flex: 1 1 auto;
+    color: rgba(255, 255, 255, .5);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  
+    & .messages-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      overflow-y: auto; /* Enables vertical scrolling */
+     
+    }
+  
+    .message-container {
+      display: flex;
+      align-items: center;
+      max-width: 70%;
+      padding: 5px;
+      border-radius: 10px;
+    }
+  
+    .message-container.received {
+      justify-content: flex-start;
+      background: rgba(0, 0, 0, .3);
+      margin-left: 10px;
+      align-self: flex-start;
+  
+      .avatar {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 30px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.24);
+  
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+  
+      p {
+        margin: 0;
+        padding: 6px 10px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, .3);
+        color: #fff;
+        font-size: 11px;
+        line-height: 1.4;
+      }
+    }
+    .message-container.received p,
+  .message-container.sent p {
+    word-wrap: break-word; /* Ensures long words break and wrap to the next line */
+    word-break: break-word; /* Ensures long words break and wrap to the next line */
+    white-space: pre-wrap; /* Preserves whitespace and wraps text */
+  }
+  
+    .message-container.sent {
+      justify-content: flex-end;
+      background: linear-gradient(120deg, #248A52, #257287);
+      margin-right: 10px;
+      align-self: flex-end;
+  
+      p {
+        margin: 0;
+        padding: 6px 10px;
+        border-radius: 10px;
+        background: linear-gradient(120deg, #248A52, #257287);
+        color: #fff;
+        font-size: 11px;
+        line-height: 1.4;
+      }
+    }
+  }
+  
+  .message-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .message-submit {
+    background-image: linear-gradient(to right, #4facfe, #00f2fe);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 10px; /* Add some space between the input and the button */
+  }
+  
+  .message-submit:hover {
+    background-image: linear-gradient(to right, #00f2fe, #4facfe);
+  }
+  
+  /*--------------------
+  Message Box
+  --------------------*/
+  .message-box {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .message-input {
+    flex-grow: 1; /* Allows the input to take up the remaining space */
+    background: none;
+    border: none;
+    outline: none !important;
+    resize: none;
+    color: rgba(255, 255, 255, .7);
+    font-size: 11px;
+    height: 17px;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  .message-submit {
+    background-image: linear-gradient(to right, #4facfe, #4139a8);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 10px; /* Add some space between the input and the button */
+  }
+  
+  .message-submit:hover {
+    background-image: linear-gradient(to right, #00f2fe, #4facfe);
+  }
+  
+  
+  /*--------------------
+  Custom Scrollbar
+  --------------------*/
+  .mCSB_scrollTools {
+    margin: 1px -3px 1px 0;
+    opacity: 0;
+  }
+  
+  .mCSB_inside > .mCSB_container {
+    margin-right: 0px;
+    padding: 0 10px;
+  }
+  
+  .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  /*--------------------
+  Bounce
+  --------------------*/
+  @-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -webkit-transform: translateY(0);
+    }
+    40% {
+      -webkit-transform: translateY(-30px);
+    }
+    60% {
+      -webkit-transform: translateY(-15px);
+    }
+  }
+  
+  @-moz-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -moz-transform: translateY(0);
+    }
+    40% {
+      -moz-transform: translateY(-30px);
+    }
+    60% {
+      -moz-transform: translateY(-15px);
+    }
+  }
+  
+  @-o-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      -o-transform: translateY(0);
+    }
+    40% {
+      -o-transform: translateY(-30px);
+    }
+    60% {
+      -o-transform: translateY(-15px);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px);
+    }
+    60% {
+      transform: translateY(-15px);
+    }
+  }
+  
+  .animated.bounce {
+    -webkit-animation-name: bounce;
+    -moz-animation-name: bounce;
+    -o-animation-name: bounce;
+    animation-name: bounce;
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    -o-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
+  
